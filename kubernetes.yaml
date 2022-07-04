@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ec33nw-map-gui
+  labels:
+    app: ec33nw-map-gui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ec33nw-map-gui
+  template:
+    metadata:
+      labels:
+        app: ec33nw-map-gui
+    spec:
+      containers:
+        - name: ec33nw-map-gui
+          image: zedas/ec33nw-map-gui
+          ports:
+            - containerPort: 80
+          imagePullPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ec33nw-map-gui-service
+spec:
+  selector:
+    app: ec33nw-map-gui
+  ports:
+    - port: 80
+      name: defaultnginxport
+      protocol: TCP
+      targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ec33nw-map-gui-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+  namespace: default
+spec:
+  rules:
+    - host: ec33nw.map.analytics.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ec33nw-map-gui-service
+                port:
+                  number: 80
+    - host: ec33nw.map.analytics.api.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ec33nw-analytics-service
+                port:
+                  number: 8081
