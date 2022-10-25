@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { GrpcTestRestControllerService } from 'api';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -14,7 +14,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 })
 export class AppComponent implements OnInit {
   content!: ElementRef;
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   options: string[] = [];
   filteredOptions: Observable<string[]> = {} as Observable<string[]>;
   childMaincomponent: MainPageComponent = {} as MainPageComponent;
