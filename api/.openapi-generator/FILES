@@ -2,9 +2,8 @@
 .openapi-generator-ignore
 README.md
 api.module.ts
+api/analyticsRestController.service.ts
 api/api.ts
-api/basicErrorController.service.ts
-api/grpcTestRestController.service.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -15,7 +14,5 @@ model/cashFlow.ts
 model/cashFlows.ts
 model/incomeStatement.ts
 model/incomeStatements.ts
-model/modelAndView.ts
 model/models.ts
-model/view.ts
 variables.ts

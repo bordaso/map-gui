@@ -1,4 +1,4 @@
-import { GrpcTestRestControllerService } from './../../../api/api/grpcTestRestController.service';
+import { AnalyticsRestControllerService } from 'api/api/analyticsRestController.service';
 import { CashFlow } from './../../../api/model/cashFlow';
 import { IncomeStatement } from './../../../api/model/incomeStatement';
 import { BalanceSheet } from './../../../api/model/balanceSheet';
@@ -59,16 +59,12 @@ export class MainPageComponent implements OnInit {
   symbolPeers: string[] = [];
 
   constructor(
-    private stmtService: GrpcTestRestControllerService,
+    private stmtService: AnalyticsRestControllerService,
     public dialog: MatDialog
   ) {
-    this.$stmtsObs.push(this.stmtService.getBalancesheetUsingGET(this.symbol));
-    this.$stmtsObs.push(
-      this.stmtService.getIncomeStatementUsingGET(this.symbol)
-    );
-    this.$stmtsObs.push(
-      this.stmtService.getCashflowStatementUsingGET(this.symbol)
-    );
+    this.$stmtsObs.push(this.stmtService.getBalancesheet(this.symbol));
+    this.$stmtsObs.push(this.stmtService.getIncomeStatement(this.symbol));
+    this.$stmtsObs.push(this.stmtService.getCashflowStatement(this.symbol));
 
     this.setupTables(this.symbol);
   }
@@ -109,7 +105,7 @@ export class MainPageComponent implements OnInit {
       .pipe(
         finalize(() => {
           timer(1000).subscribe(() => {
-            this.stmtService.getPeersUsingGET(symbol).subscribe((res) => {
+            this.stmtService.getPeers(symbol).subscribe((res) => {
               this.symbolPeers = res?.map((el) => '  ' + el);
             });
           });

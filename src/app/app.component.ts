@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { GrpcTestRestControllerService } from 'api';
+import { AnalyticsRestControllerService } from 'api/api/analyticsRestController.service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { startWith, map, timer } from 'rxjs';
@@ -22,12 +22,12 @@ export class AppComponent implements OnInit {
   symbol: string = 'A';
 
   constructor(
-    private stmtService: GrpcTestRestControllerService,
+    private stmtService: AnalyticsRestControllerService,
     private elRef: ElementRef
   ) {
     this.content = elRef;
     timer(1000).subscribe(() =>
-      this.stmtService.getSymbolsUsingGET().subscribe((ressym) => {
+      this.stmtService.getSymbols().subscribe((ressym) => {
         this.options = ressym;
       })
     );

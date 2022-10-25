@@ -2,8 +2,7 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
-import { BasicErrorControllerService } from './api/basicErrorController.service';
-import { GrpcTestRestControllerService } from './api/grpcTestRestController.service';
+import { AnalyticsRestControllerService } from './api/analyticsRestController.service';
 
 @NgModule({
   imports:      [],
